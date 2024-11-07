@@ -34,38 +34,53 @@ class House:
     #if isinstance(other, int) and isinstance(other, House):
 
     def __eq__(self, other):
-        if isinstance(other, House) and isinstance(other, House):
-            return  self.number_of_floors == other.number_of_floors
+        if isinstance(other, House):
+            return self.number_of_floors == other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors == other
+
 
     def __lt__(self, other):
-        if isinstance(other, int) and isinstance(other, House): # если эта строка закоментирована, то работает верно
+        if isinstance(other, House):
             return self.number_of_floors < other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors < other
 
     def __le__(self, other):
-        if isinstance(other, House) and isinstance(other, House):
+        if isinstance(other, House):
             return self.number_of_floors <= other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors <= other
 
     def __gt__(self, other):
-        if isinstance(other, House) and isinstance(other, House):
+        if isinstance(other, House):
             return self.number_of_floors > other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors > other
 
     def __ge__(self, other):
-        if isinstance(other, House) and isinstance(other, House):
+        if isinstance(other, House):
             return self.number_of_floors >= other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors >= other
 
     def __ne__(self, other):
-        if isinstance(other, House) and isinstance(other, House):
-            return self.number_of_floors  != other.number_of_floors
+        if isinstance(other, int):
+            return self.number_of_floors != other
+        elif isinstance(other, House):
+            return self.number_of_floors != other.number_of_floors
 
     def __add__(self, other):
-        if isinstance (other, int):# and isinstance(other, House):#and isinstance(Houses, int)
-            return self.number_of_floors + other
-            # return  self.number_of_floors + other.number_of_floors
+        if isinstance(other, House):
+            self.number_of_floors += other.number_of_floors
+        elif isinstance(other, int):
+            self.number_of_floors += other
+            return self
     def __radd__(self, other):
-        return self.number_of_floors
+        return self.__add__(other)
 
     def __iadd__(self, other):
-        return self.number_of_floors
+        return self.__add__(other)
 
 
 h1 = House('ЖК Эльбрус', 10)
@@ -74,17 +89,16 @@ h2 = House('ЖК Акация', 20)
 print(h1)
 print(h2)
 
-print(h1 == h2) #False
+print(h1 == h2) # __eq__
 
-print(h1 + 10)  #h1=h1+10  # __add__
-print(h1) #Название: ЖК Эльбрус, кол-во этажей: 20
-print(h1 == h2) #True
+h1 = h1 + 10 # __add__
+print(h1)
+print(h1 == h2)
 
-#print(h1 += 10) # __iadd__
-# print(h1)
-print(h2 + 10)
+h1 += 10 # __iadd__
+print(h1)
 
-#h2= (10 + h2)  # __radd__
+h2 = 10 + h2 # __radd__
 print(h2)
 
 print(h1 > h2) # __gt__
